@@ -79,3 +79,40 @@ class Paciente{
        System.out.println("Area : " + Area);
        System.out.println("HistorialCambios : " + HistorialCambios);
        }};
+
+class AreaAtencion{
+       private String Nombre;
+       private PriorityQueue<Paciente> PacientesHeap;
+       private int CapacidadMaxima;
+
+       AreaAtencion(String Nombre,PriorityQueue<Paciente> PacientesHeap,int CapacidadMaxima) {
+       this.Nombre = Nombre;
+       this.PacientesHeap = PacientesHeap;
+       this.CapacidadMaxima = CapacidadMaxima;
+       }
+
+       public void SetNombre (String NewNombre) {
+       Nombre = NewNombre;
+       }
+       public void SetPacientesHeap (PriorityQueue<Paciente> NewPacientesHeap) {
+       PacientesHeap = NewPacientesHeap;
+       }
+       public void SetCapacidadMaxima (int NewCapacidadMaxima) {
+       CapacidadMaxima = NewCapacidadMaxima;
+       }
+
+       public String GetNombre() {
+       return Nombre;
+       }
+       public PriorityQueue<Paciente> GetPacientesHeap() {
+       return PacientesHeap;
+       }
+       public int GetCapacidadMaxima() {
+       return CapacidadMaxima;
+       }
+
+       public void PrintWeas() {
+       System.out.println("Nombre : " + Nombre);
+       System.out.println("PacientesHeap : " + PacientesHeap);
+       System.out.println("CapacidadMaxima : " + CapacidadMaxima);
+       }};
