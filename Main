@@ -1,1 +1,81 @@
+class Paciente{
+       private String Nombre;
+       private String Apellido;
+       private String Id;
+       private int Categoria;
+       private long TiempoLlegada;
+       private String Estado;
+       private String Area;
+       private Stack<String> HistorialCambios;
 
+       Paciente(String Nombre,String Apellido,String Id,int Categoria,long TiempoLlegada,String Estado,String Area,Stack<String> HistorialCambios) {
+       this.Nombre = Nombre;
+       this.Apellido = Apellido;
+       this.Id = Id;
+       this.Categoria = Categoria;
+       this.TiempoLlegada = TiempoLlegada;
+       this.Estado = Estado;
+       this.Area = Area;
+       this.HistorialCambios = HistorialCambios;
+       }
+
+       public void SetNombre (String NewNombre) {
+       Nombre = NewNombre;
+       }
+       public void SetApellido (String NewApellido) {
+       Apellido = NewApellido;
+       }
+       public void SetId (String NewId) {
+       Id = NewId;
+       }
+       public void SetCategoria (int NewCategoria) {
+       Categoria = NewCategoria;
+       }
+       public void SetTiempoLlegada (long NewTiempoLlegada) {
+       TiempoLlegada = NewTiempoLlegada;
+       }
+       public void SetEstado (String NewEstado) {
+       Estado = NewEstado;
+       }
+       public void SetArea (String NewArea) {
+       Area = NewArea;
+       }
+       public void SetHistorialCambios (Stack<String> NewHistorialCambios) {
+       HistorialCambios = NewHistorialCambios;
+       }
+
+       public String GetNombre() {
+       return Nombre;
+       }
+       public String GetApellido() {
+       return Apellido;
+       }
+       public String GetId() {
+       return Id;
+       }
+       public int GetCategoria() {
+       return Categoria;
+       }
+       public long GetTiempoLlegada() {
+       return TiempoLlegada;
+       }
+       public String GetEstado() {
+       return Estado;
+       }
+       public String GetArea() {
+       return Area;
+       }
+       public Stack<String> GetHistorialCambios() {
+       return HistorialCambios;
+       }
+
+       public void PrintWeas() {
+       System.out.println("Nombre : " + Nombre);
+       System.out.println("Apellido : " + Apellido);
+       System.out.println("Id : " + Id);
+       System.out.println("Categoria : " + Categoria);
+       System.out.println("TiempoLlegada : " + TiempoLlegada);
+       System.out.println("Estado : " + Estado);
+       System.out.println("Area : " + Area);
+       System.out.println("HistorialCambios : " + HistorialCambios);
+       }};
