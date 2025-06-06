@@ -77,8 +77,8 @@ class Paciente{
            long diferenciaTiempo = tiempoActual - TiempoLlegada;
            return diferenciaTiempo/60;
        }
-       void registrarCambio(String descripcion){
-           
+       public void registrarCambio(String descripcion){
+           HistorialCambios.push(descripcion + " / / / " + new date.toString());
        }
        public String obtenerUltimoCambio(){
            
