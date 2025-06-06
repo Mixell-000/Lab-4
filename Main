@@ -78,9 +78,13 @@ class Paciente{
            return diferenciaTiempo/60;
        }
        public void registrarCambio(String descripcion){
-           HistorialCambios.push(descripcion + " / / / " + new date.toString());
+            HistorialCambios.push(descripcion + " / / / " + new Date().toString());
        }
        public String obtenerUltimoCambio(){
+           if(HistorialCambios.isEmpty() == false){
+               return HistorialCambios.pop();
+           }
+           else{return "No hay cambios.";}
            
        }
        
