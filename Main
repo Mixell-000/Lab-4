@@ -73,7 +73,9 @@ class Paciente{
        }
        
        public long tiempoEsperaActual(){
-           
+           long tiempoActual = System.currentTimeMillis() / 1000L;
+           long diferenciaTiempo = tiempoActual - TiempoLlegada;
+           return diferenciaTiempo/60;
        }
        void registrarCambio(String descripcion){
            
