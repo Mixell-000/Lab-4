@@ -1,3 +1,6 @@
+import java.util.*;
+import java.io.*;
+
 class Paciente{
        private String Nombre;
        private String Apellido;
@@ -68,8 +71,33 @@ class Paciente{
        public Stack<String> GetHistorialCambios() {
        return HistorialCambios;
        }
+       
+       public long tiempoEsperaActual(){
+           
+       }
+       void registrarCambio(String descripcion){
+           
+       }
+       public String obtenerUltimoCambio(){
+           
+       }
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
 
-       public void PrintWeas() {
+       public void Printcosos() {
        System.out.println("Nombre : " + Nombre);
        System.out.println("Apellido : " + Apellido);
        System.out.println("Id : " + Id);
@@ -110,9 +138,103 @@ class AreaAtencion{
        public int GetCapacidadMaxima() {
        return CapacidadMaxima;
        }
+       
+       public void ingresarPaciente(Paciente p){
+           
+       }
+       public Paciente atenderPaciente(){
+           
+       }
+       public boolean estaSaturada(){
+           
+       }
+       public List<Paciente>obtenerPacientesPorHeapSort(){
+           
+       }
+       
+       
 
-       public void PrintWeas() {
+       public void Printcosos() {
        System.out.println("Nombre : " + Nombre);
        System.out.println("PacientesHeap : " + PacientesHeap);
        System.out.println("CapacidadMaxima : " + CapacidadMaxima);
        }};
+       
+class Hospital{
+    private Map<String, Paciente> pacientesTotales;
+    private PriorityQueue<Paciente> colaAtencion;
+    private Map<String, AreaAtencion> areasAtencion;
+    private List<Paciente> pacientesAtendidos;
+    
+     Hospital(Map<String, Paciente> PacientesTotales,
+             PriorityQueue<Paciente> ColaAtencion,
+             Map<String, AreaAtencion> AreasAtencion,
+             List<Paciente> PacientesAtendidos) {
+        this.PacientesTotales = PacientesTotales;
+        this.ColaAtencion = ColaAtencion;
+        this.AreasAtencion = AreasAtencion;
+        this.PacientesAtendidos = PacientesAtendidos;
+    }
+    
+     public void SetPacientesTotales(Map<String, Paciente> nuevosPacientes) {
+        PacientesTotales = nuevosPacientes;
+    }
+
+    public void SetColaAtencion(PriorityQueue<Paciente> nuevaCola) {
+        ColaAtencion = nuevaCola;
+    }
+
+    public void SetAreasAtencion(Map<String, AreaAtencion> nuevasAreas) {
+        AreasAtencion = nuevasAreas;
+    }
+
+    public void SetPacientesAtendidos(List<Paciente> nuevosAtendidos) {
+        PacientesAtendidos = nuevosAtendidos;
+    }
+
+    public Map<String, Paciente> GetPacientesTotales() {
+        return PacientesTotales;
+    }
+
+    public PriorityQueue<Paciente> GetColaAtencion() {
+        return ColaAtencion;
+    }
+
+    public Map<String, AreaAtencion> GetAreasAtencion() {
+        return AreasAtencion;
+    }
+
+    public List<Paciente> GetPacientesAtendidos() {
+        return PacientesAtendidos;
+    }
+
+    public void Printcosos() {
+        System.out.println("PacientesTotales: " + PacientesTotales.keySet());
+        System.out.println("ColaAtencion: " + ColaAtencion);
+        System.out.println("AreasAtencion: " + AreasAtencion.keySet());
+        System.out.println("PacientesAtendidos: " + PacientesAtendidos.size());
+    }
+    
+    
+    public Void registrarPaciente(Paciente p){
+        
+    }
+    public void reasignarCategoria(String id , int nuevaCategoria){
+        
+    }
+    public Paciente atenderSiguiente(){
+        
+    }
+    public List<Paciente>obtenerPacientesPorCategoria(int categoria){
+        
+    }
+    public AreaAtencion obtenerArea(String nombre){
+        
+    }
+    
+    
+    
+    
+    
+    
+}
