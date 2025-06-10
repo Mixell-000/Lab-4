@@ -247,7 +247,7 @@ class Hospital{
 
 class GeneradorPacientes{
     private static String[] PapuNombres={"Javoer", "Michell", "Marcos", "Gon", "Kurapika", "Leorio", "Killua", "Eren", "Mikasa", "Armin", "Miku", "Teto", "Satoru", "Miyuki","Kaguya","Senku", "Subaru", "Emilia", "Rem", "Kazuma", "Aqua", "Megumin", "Ainz", "Ash", "Marin", "Pekora", "Gura"};
-    private static String[] PapuApellidos={"Santibáñez", "Soto", "Fantoval", "Freecss", "Paladiknight", "Zoldyck", "Jaeger", "Ackerman", "Arlert", "Hatsune", "Kasane", "Gojo", "Shirogane", "Shinomiya", "Natsuki", "Satou", "Ooal Gown", "Ketchum", "Houshou", "Usada", "Gawr"};
+    private static String[] PapuApellidos={"Santibáñez", "Soto", "Fantoval", "Freecss", "Paladiknight", "Zoldyck", "Jaeger", "Ackerman", "Arlert", "Hatsune", "Kasane", "Gojo", "Shirogane", "Shinomiya", "Ishibami", "Natsuki", "Satou", "Ooal Gown", "Ketchum", "Houshou", "Usada", "Gawr"};
     private static String[] PapuAreas={"SAPU", "Urgencia_Adulto", "Infantil"};
     private static long PapuInicio = 0L;
     private static Random Papualeatorio = new Random()
