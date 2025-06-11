@@ -1,292 +1,309 @@
 import java.util.*;
 import java.io.*;
 
-class Paciente{
-       private String Nombre;
-       private String Apellido;
-       private String Id;
-       private int Categoria;
-       private long TiempoLlegada;
-       private String Estado;
-       private String Area;
-       private Stack<String> HistorialCambios;
+class Paciente {
+	private String Nombre;
+	private String Apellido;
+	private String Id;
+	private int Categoria;
+	private long TiempoLlegada;
+	private String Estado;
+	private String Area;
+	private Stack<String> HistorialCambios;
 
-       Paciente(String Nombre,String Apellido,String Id,int Categoria,long TiempoLlegada,String Estado,String Area,Stack<String> HistorialCambios) {
-       this.Nombre = Nombre;
-       this.Apellido = Apellido;
-       this.Id = Id;
-       this.Categoria = Categoria;
-       this.TiempoLlegada = TiempoLlegada;
-       this.Estado = Estado;
-       this.Area = Area;
-       this.HistorialCambios = HistorialCambios;
-       }
+	Paciente(String Nombre,String Apellido,String Id,int Categoria,long TiempoLlegada,String Estado,String Area,Stack<String> HistorialCambios) {
+		this.Nombre = Nombre;
+		this.Apellido = Apellido;
+		this.Id = Id;
+		this.Categoria = Categoria;
+		this.TiempoLlegada = TiempoLlegada;
+		this.Estado = Estado;
+		this.Area = Area;
+		this.HistorialCambios = HistorialCambios;
+	}
 
-       public void SetNombre (String NewNombre) {
-       Nombre = NewNombre;
-       }
-       public void SetApellido (String NewApellido) {
-       Apellido = NewApellido;
-       }
-       public void SetId (String NewId) {
-       Id = NewId;
-       }
-       public void SetCategoria (int NewCategoria) {
-       Categoria = NewCategoria;
-       }
-       public void SetTiempoLlegada (long NewTiempoLlegada) {
-       TiempoLlegada = NewTiempoLlegada;
-       }
-       public void SetEstado (String NewEstado) {
-       Estado = NewEstado;
-       }
-       public void SetArea (String NewArea) {
-       Area = NewArea;
-       }
-       public void SetHistorialCambios (Stack<String> NewHistorialCambios) {
-       HistorialCambios = NewHistorialCambios;
-       }
+	public void SetNombre (String NewNombre) {
+		Nombre = NewNombre;
+	}
+	public void SetApellido (String NewApellido) {
+		Apellido = NewApellido;
+	}
+	public void SetId (String NewId) {
+		Id = NewId;
+	}
+	public void SetCategoria (int NewCategoria) {
+		Categoria = NewCategoria;
+	}
+	public void SetTiempoLlegada (long NewTiempoLlegada) {
+		TiempoLlegada = NewTiempoLlegada;
+	}
+	public void SetEstado (String NewEstado) {
+		Estado = NewEstado;
+	}
+	public void SetArea (String NewArea) {
+		Area = NewArea;
+	}
+	public void SetHistorialCambios (Stack<String> NewHistorialCambios) {
+		HistorialCambios = NewHistorialCambios;
+	}
 
-       public String GetNombre() {
-       return Nombre;
-       }
-       public String GetApellido() {
-       return Apellido;
-       }
-       public String GetId() {
-       return Id;
-       }
-       public int GetCategoria() {
-       return Categoria;
-       }
-       public long GetTiempoLlegada() {
-       return TiempoLlegada;
-       }
-       public String GetEstado() {
-       return Estado;
-       }
-       public String GetArea() {
-       return Area;
-       }
-       public Stack<String> GetHistorialCambios() {
-       return HistorialCambios;
-       }
-       
-       public long tiempoEsperaActual(){
-           long tiempoActual = System.currentTimeMillis() / 1000L;
-           long diferenciaTiempo = tiempoActual - TiempoLlegada;
-           return diferenciaTiempo/60;
-       }
-       public void registrarCambio(String descripcion){
-            HistorialCambios.push(descripcion + " / / / " + new Date().toString());
-       }
-       public String obtenerUltimoCambio(){
-           if(HistorialCambios.isEmpty() == false){
-               return HistorialCambios.pop();
-           }
-           else{return "No hay cambios.";}
-           
-       }
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
+	public String GetNombre() {
+		return Nombre;
+	}
+	public String GetApellido() {
+		return Apellido;
+	}
+	public String GetId() {
+		return Id;
+	}
+	public int GetCategoria() {
+		return Categoria;
+	}
+	public long GetTiempoLlegada() {
+		return TiempoLlegada;
+	}
+	public String GetEstado() {
+		return Estado;
+	}
+	public String GetArea() {
+		return Area;
+	}
+	public Stack<String> GetHistorialCambios() {
+		return HistorialCambios;
+	}
 
-       public void Printcosos() {
-       System.out.println("Nombre : " + Nombre);
-       System.out.println("Apellido : " + Apellido);
-       System.out.println("Id : " + Id);
-       System.out.println("Categoria : " + Categoria);
-       System.out.println("TiempoLlegada : " + TiempoLlegada);
-       System.out.println("Estado : " + Estado);
-       System.out.println("Area : " + Area);
-       System.out.println("HistorialCambios : " + HistorialCambios);
-       }};
+	public long tiempoEsperaActual() {
+		long tiempoActual = System.currentTimeMillis() / 1000L;
+		long diferenciaTiempo = tiempoActual - TiempoLlegada;
+		return diferenciaTiempo/60;
+	}
+	public void registrarCambio(String descripcion) {
+		HistorialCambios.push(descripcion + " / / / " + new Date().toString());
+	}
+	public String obtenerUltimoCambio() {
+		if(HistorialCambios.isEmpty() == false) {
+			return HistorialCambios.pop();
+		}
+		else {
+			return "No hay cambios.";
+		}
 
-class AreaAtencion{
-       private String Nombre;
-       private PriorityQueue<Paciente> PacientesHeap;
-       private int CapacidadMaxima;
+	}
 
-       AreaAtencion(String Nombre,PriorityQueue<Paciente> PacientesHeap,int CapacidadMaxima) {
-       this.Nombre = Nombre;
-       this.PacientesHeap = PacientesHeap;
-       this.CapacidadMaxima = CapacidadMaxima;
-       }
 
-       public void SetNombre (String NewNombre) {
-       Nombre = NewNombre;
-       }
-       public void SetPacientesHeap (PriorityQueue<Paciente> NewPacientesHeap) {
-       PacientesHeap = NewPacientesHeap;
-       }
-       public void SetCapacidadMaxima (int NewCapacidadMaxima) {
-       CapacidadMaxima = NewCapacidadMaxima;
-       }
 
-       public String GetNombre() {
-       return Nombre;
-       }
-       public PriorityQueue<Paciente> GetPacientesHeap() {
-       return PacientesHeap;
-       }
-       public int GetCapacidadMaxima() {
-       return CapacidadMaxima;
-       }
-       
-       public void ingresarPaciente(Paciente p){
-           
-       }
-       public Paciente atenderPaciente(){
-           
-       }
-       public boolean estaSaturada(){
-           
-       }
-       public List<Paciente>obtenerPacientesPorHeapSort(){
-           
-       }
-       
-       
 
-       public void Printcosos() {
-       System.out.println("Nombre : " + Nombre);
-       System.out.println("PacientesHeap : " + PacientesHeap);
-       System.out.println("CapacidadMaxima : " + CapacidadMaxima);
-       }};
-       
-class Hospital{
-    private Map<String, Paciente> pacientesTotales;
-    private PriorityQueue<Paciente> colaAtencion;
-    private Map<String, AreaAtencion> areasAtencion;
-    private List<Paciente> pacientesAtendidos;
-    
-     Hospital(Map<String, Paciente> PacientesTotales,
-             PriorityQueue<Paciente> ColaAtencion,
-             Map<String, AreaAtencion> AreasAtencion,
-             List<Paciente> PacientesAtendidos) {
-        this.PacientesTotales = PacientesTotales;
-        this.ColaAtencion = ColaAtencion;
-        this.AreasAtencion = AreasAtencion;
-        this.PacientesAtendidos = PacientesAtendidos;
-    }
-    
-     public void SetPacientesTotales(Map<String, Paciente> nuevosPacientes) {
-        PacientesTotales = nuevosPacientes;
-    }
 
-    public void SetColaAtencion(PriorityQueue<Paciente> nuevaCola) {
-        ColaAtencion = nuevaCola;
-    }
 
-    public void SetAreasAtencion(Map<String, AreaAtencion> nuevasAreas) {
-        AreasAtencion = nuevasAreas;
-    }
 
-    public void SetPacientesAtendidos(List<Paciente> nuevosAtendidos) {
-        PacientesAtendidos = nuevosAtendidos;
-    }
 
-    public Map<String, Paciente> GetPacientesTotales() {
-        return PacientesTotales;
-    }
 
-    public PriorityQueue<Paciente> GetColaAtencion() {
-        return ColaAtencion;
-    }
 
-    public Map<String, AreaAtencion> GetAreasAtencion() {
-        return AreasAtencion;
-    }
 
-    public List<Paciente> GetPacientesAtendidos() {
-        return PacientesAtendidos;
-    }
 
-    public void Printcosos() {
-        System.out.println("PacientesTotales: " + PacientesTotales.keySet());
-        System.out.println("ColaAtencion: " + ColaAtencion);
-        System.out.println("AreasAtencion: " + AreasAtencion.keySet());
-        System.out.println("PacientesAtendidos: " + PacientesAtendidos.size());
-    }
-    
-    
-    public Void registrarPaciente(Paciente p){
-        
-    }
-    public void reasignarCategoria(String id , int nuevaCategoria){
-        
-    }
-    public Paciente atenderSiguiente(){
-        
-    }
-    public List<Paciente>obtenerPacientesPorCategoria(int categoria){
-        
-    }
-    public AreaAtencion obtenerArea(String nombre){
-        
-    }
-    
-    
-    
-    
-    
-    
+
+
+
+
+	public void Printcosos() {
+		System.out.println("Nombre : " + Nombre);
+		System.out.println("Apellido : " + Apellido);
+		System.out.println("Id : " + Id);
+		System.out.println("Categoria : " + Categoria);
+		System.out.println("TiempoLlegada : " + TiempoLlegada);
+		System.out.println("Estado : " + Estado);
+		System.out.println("Area : " + Area);
+		System.out.println("HistorialCambios : " + HistorialCambios);
+	}
+};//listo
+
+class AreaAtencion {
+	private String Nombre;
+	private PriorityQueue<Paciente> PacientesHeap;
+	private int CapacidadMaxima;
+
+	AreaAtencion(String Nombre,PriorityQueue<Paciente> PacientesHeap,int CapacidadMaxima) {
+		this.Nombre = Nombre;
+		this.PacientesHeap = PacientesHeap;
+		this.CapacidadMaxima = CapacidadMaxima;
+	}
+
+	public void SetNombre (String NewNombre) {
+		Nombre = NewNombre;
+	}
+	public void SetPacientesHeap (PriorityQueue<Paciente> NewPacientesHeap) {
+		PacientesHeap = NewPacientesHeap;
+	}
+	public void SetCapacidadMaxima (int NewCapacidadMaxima) {
+		CapacidadMaxima = NewCapacidadMaxima;
+	}
+
+	public String GetNombre() {
+		return Nombre;
+	}
+	public PriorityQueue<Paciente> GetPacientesHeap() {
+		return PacientesHeap;
+	}
+	public int GetCapacidadMaxima() {
+		return CapacidadMaxima;
+	}
+
+	public void ingresarPaciente(Paciente p) {
+		if (!estaSaturada()) {
+			PacientesHeap.add(p);
+		}
+	}
+	public Paciente atenderPaciente() {
+		return PacientesHeap.poll(); // retorna null si el heap esta vaccio
+	}
+
+	public boolean estaSaturada() {
+		return PacientesHeap.size() >= CapacidadMaxima;
+	}
+
+	public List<Paciente> obtenerPacientesPorHeapSort() {
+
+    List<Paciente> pacientesOrdenados = new ArrayList<>(PacientesHeap);
+
+
+    pacientesOrdenados.sort(
+        Comparator.comparingInt(Paciente::GetCategoria)
+                  .thenComparingLong(p -> -p.tiempoEsperaActual()) // mas tiempo esperando = más prioridad
+    );
+
+    return pacientesOrdenados;
 }
 
-class GeneradorPacientes{
-    private static String[] PapuNombres={"Javoer", "Michell", "Marcos", "Gon", "Kurapika", "Leorio", "Killua", "Eren", "Mikasa", "Armin", "Miku", "Teto", "Satoru", "Miyuki","Kaguya","Senku", "Subaru", "Emilia", "Rem", "Kazuma", "Aqua", "Megumin", "Ainz", "Ash", "Marin", "Pekora", "Gura"};
-    private static String[] PapuApellidos={"Santibáñez", "Soto", "Fantoval", "Freecss", "Paladiknight", "Zoldyck", "Jaeger", "Ackerman", "Arlert", "Hatsune", "Kasane", "Gojo", "Shirogane", "Shinomiya", "Ishibami", "Natsuki", "Satou", "Ooal Gown", "Ketchum", "Houshou", "Usada", "Gawr"};
-    private static String[] PapuAreas={"SAPU", "Urgencia_Adulto", "Infantil"};
-    private static long PapuInicio = 0L;
-    private static Random Papualeatorio = new Random()
 
-    public static List<Paciente> GenerarPacientes(int PapuCantidad, long PapuTimestampInicio){
-        List<Paciente> PapuListaPacientes = new ArrayList<>(); //Esta es la lista donde se guardan todos los pacientes
 
-        for(int i = 0; i<Papucantidad; i++){
-            String Papunombre = Papunombres[Papualeatorio.nextInt(Papunombres.length)];
-            String PapuApellido = PapuApellidos[Papualeatorio.nextInt(PapuApellidos.length)];
-            String PapuId = "N°"+ i;
-            int PapuCategoria = QueTanMoridoEsta();
-            long PapuTiempoLlegada = PapuTimestampInicio + (i*600);
-            String PapuEstado = "En espera";
-            String PapuArea[Papualeatorio.nextInt(PapuAreas.lenght)];
-            Stack<String> PapuHistorial = new Stack<>();
+	public void Printcosos() {
+		System.out.println("Nombre : " + Nombre);
+		System.out.println("PacientesHeap : " + PacientesHeap);
+		System.out.println("CapacidadMaxima : " + CapacidadMaxima);
+	}
+};
 
-            Paciente PapuPaciente = new Paciente(Papunombre, PapuApellido, PapuId, PapuCategoria,PapuTiempoLlegada,PapuEstado,PapuArea,PapuHistorial);
-            PapuListaPacientes.add(PapuPaciente);
+class Hospital {
+	private Map<String, Paciente> pacientesTotales;
+	private PriorityQueue<Paciente> colaAtencion;
+	private Map<String, AreaAtencion> areasAtencion;
+	private List<Paciente> pacientesAtendidos;
 
-        }
-        return PapuListaPacientes;
-    }
+	Hospital(Map<String, Paciente> PacientesTotales,
+	         PriorityQueue<Paciente> ColaAtencion,
+	         Map<String, AreaAtencion> AreasAtencion,
+	         List<Paciente> PacientesAtendidos) {
+		this.PacientesTotales = PacientesTotales;
+		this.ColaAtencion = ColaAtencion;
+		this.AreasAtencion = AreasAtencion;
+		this.PacientesAtendidos = PacientesAtendidos;
+	}
 
-     static int QueTanMoridoEsta(){
-        int PapuValor = PapuAleatorio.nextInt(100);
+	public void SetPacientesTotales(Map<String, Paciente> nuevosPacientes) {
+		PacientesTotales = nuevosPacientes;
+	}
 
-        if(PapuValor < 10) return 1;
-            else if(PapuValor < 25) return 2;
-                else if(PapuValor < 43) return 3;
-                    else if(PapuValor < 70) return 4;
-                        else return 5;
-     }
+	public void SetColaAtencion(PriorityQueue<Paciente> nuevaCola) {
+		ColaAtencion = nuevaCola;
+	}
 
-     public static void EnlistarALosPacientes(list<paciente> PapuPacientes, String PapuNombreArchivo){
-        try(PrintWriter PapuWriter = new PrintWriter(new FileWriter(PapuNombreArchivo))){
-            for(Paciente p:PapuPacientes){
-                PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + p.GetArea());
-            }
-        }
-     }
+	public void SetAreasAtencion(Map<String, AreaAtencion> nuevasAreas) {
+		AreasAtencion = nuevasAreas;
+	}
+
+	public void SetPacientesAtendidos(List<Paciente> nuevosAtendidos) {
+		PacientesAtendidos = nuevosAtendidos;
+	}
+
+	public Map<String, Paciente> GetPacientesTotales() {
+		return PacientesTotales;
+	}
+
+	public PriorityQueue<Paciente> GetColaAtencion() {
+		return ColaAtencion;
+	}
+
+	public Map<String, AreaAtencion> GetAreasAtencion() {
+		return AreasAtencion;
+	}
+
+	public List<Paciente> GetPacientesAtendidos() {
+		return PacientesAtendidos;
+	}
+
+	public void Printcosos() {
+		System.out.println("PacientesTotales: " + PacientesTotales.keySet());
+		System.out.println("ColaAtencion: " + ColaAtencion);
+		System.out.println("AreasAtencion: " + AreasAtencion.keySet());
+		System.out.println("PacientesAtendidos: " + PacientesAtendidos.size());
+	}
+
+
+	public Void registrarPaciente(Paciente p) {
+
+	}
+	public void reasignarCategoria(String id, int nuevaCategoria) {
+
+	}
+	public Paciente atenderSiguiente() {
+
+	}
+	public List<Paciente>obtenerPacientesPorCategoria(int categoria) {
+
+	}
+	public AreaAtencion obtenerArea(String nombre) {
+
+	}
+
+
+
+
+
+
 }
+
+class GeneradorPacientes {
+	private static String[] PapuNombres= {"Javoer", "Michell", "Marcos", "Gon", "Kurapika", "Leorio", "Killua", "Eren", "Mikasa", "Armin", "Miku", "Teto", "Satoru", "Miyuki","Kaguya","Senku", "Subaru", "Emilia", "Rem", "Kazuma", "Aqua", "Megumin", "Ainz", "Ash", "Marin", "Pekora", "Gura"};
+	private static String[] PapuApellidos= {"SantibC!C1ez", "Soto", "Fantoval", "Freecss", "Paladiknight", "Zoldyck", "Jaeger", "Ackerman", "Arlert", "Hatsune", "Kasane", "Gojo", "Shirogane", "Shinomiya", "Ishibami", "Natsuki", "Satou", "Ooal Gown", "Ketchum", "Houshou", "Usada", "Gawr"};
+	private static String[] PapuAreas= {"SAPU", "Urgencia_Adulto", "Infantil"};
+	private static long PapuInicio = 0L;
+	private static Random Papualeatorio = new Random()
+
+	public static List<Paciente> GenerarPacientes(int PapuCantidad, long PapuTimestampInicio) {
+		List<Paciente> PapuListaPacientes = new ArrayList<>(); //Esta es la lista donde se guardan todos los pacientes
+
+		for(int i = 0; i<Papucantidad; i++) {
+			String Papunombre = Papunombres[Papualeatorio.nextInt(Papunombres.length)];
+			String PapuApellido = PapuApellidos[Papualeatorio.nextInt(PapuApellidos.length)];
+			String PapuId = "NB0"+ i;
+			int PapuCategoria = QueTanMoridoEsta();
+			long PapuTiempoLlegada = PapuTimestampInicio + (i*600);
+			String PapuEstado = "En espera";
+			String PapuArea[Papualeatorio.nextInt(PapuAreas.lenght)];
+			Stack<String> PapuHistorial = new Stack<>();
+
+			Paciente PapuPaciente = new Paciente(Papunombre, PapuApellido, PapuId, PapuCategoria,PapuTiempoLlegada,PapuEstado,PapuArea,PapuHistorial);
+			PapuListaPacientes.add(PapuPaciente);
+
+		}
+		return PapuListaPacientes;
+	}
+
+	static int QueTanMoridoEsta() {
+		int PapuValor = PapuAleatorio.nextInt(100);
+
+		if(PapuValor < 10) return 1;
+		else if(PapuValor < 25) return 2;
+		else if(PapuValor < 43) return 3;
+		else if(PapuValor < 70) return 4;
+		else return 5;
+	}
+
+	public static void EnlistarALosPacientes(list<paciente> PapuPacientes, String PapuNombreArchivo) {
+		try(PrintWriter PapuWriter = new PrintWriter(new FileWriter(PapuNombreArchivo))) {
+			for(Paciente p:PapuPacientes) {
+				PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + p.GetArea());
+			}
+		}
+	}
+}//listo
