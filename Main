@@ -263,47 +263,46 @@ class Hospital {
 }
 
 class GeneradorPacientes {
-	private static String[] PapuNombres= {"Javoer", "Michell", "Marcos", "Gon", "Kurapika", "Leorio", "Killua", "Eren", "Mikasa", "Armin", "Miku", "Teto", "Satoru", "Miyuki","Kaguya","Senku", "Subaru", "Emilia", "Rem", "Kazuma", "Aqua", "Megumin", "Ainz", "Ash", "Marin", "Pekora", "Gura"};
-	private static String[] PapuApellidos= {"SantibC!C1ez", "Soto", "Fantoval", "Freecss", "Paladiknight", "Zoldyck", "Jaeger", "Ackerman", "Arlert", "Hatsune", "Kasane", "Gojo", "Shirogane", "Shinomiya", "Ishibami", "Natsuki", "Satou", "Ooal Gown", "Ketchum", "Houshou", "Usada", "Gawr"};
-	private static String[] PapuAreas= {"SAPU", "Urgencia_Adulto", "Infantil"};
-	private static long PapuInicio = 0L;
-	private static Random Papualeatorio = new Random()
+	private static String[] PapuNombres = {"Javoer", "Michell", "Marcos", "Gon", "Kurapika", "Leorio", "Killua", "Eren", "Mikasa", "Armin", "Miku", "Teto", "Satoru", "Miyuki", "Kaguya", "Senku", "Subaru", "Emilia", "Rem", "Kazuma", "Aqua", "Megumin", "Ainz", "Ash", "Marin", "Pekora", "Gura"};
+	private static String[] PapuApellidos = {"Santibañez", "Soto", "Fantoval", "Freecss", "Paladiknight", "Zoldyck", "Jaeger", "Ackerman", "Arlert", "Hatsune", "Kasane", "Gojo", "Shirogane", "Shinomiya", "Ishibami", "Natsuki", "Satou", "Ooal Gown", "Ketchum", "Houshou", "Usada", "Gawr"};
+	private static String[] PapuAreas = {"SAPU", "Urgencia_Adulto", "Infantil"};
+	private static Random Papualeatorio = new Random();
 
 	public static List<Paciente> GenerarPacientes(int PapuCantidad, long PapuTimestampInicio) {
-		List<Paciente> PapuListaPacientes = new ArrayList<>(); //Esta es la lista donde se guardan todos los pacientes
+		List<Paciente> PapuListaPacientes = new ArrayList<>();
 
-		for(int i = 0; i<Papucantidad; i++) {
-			String Papunombre = Papunombres[Papualeatorio.nextInt(Papunombres.length)];
+		for (int i = 0; i < PapuCantidad; i++) {
+			String Papunombre = PapuNombres[Papualeatorio.nextInt(PapuNombres.length)];
 			String PapuApellido = PapuApellidos[Papualeatorio.nextInt(PapuApellidos.length)];
-			String PapuId = "NB0"+ i;
+			String PapuId = "NB0" + i;
 			int PapuCategoria = QueTanMoridoEsta();
-			long PapuTiempoLlegada = PapuTimestampInicio + (i*600);
-			String PapuEstado = "En espera";
-			String PapuArea[Papualeatorio.nextInt(PapuAreas.lenght)];
+			long PapuTiempoLlegada = PapuTimestampInicio + (i * 600);
+			String PapuEstado = "en_espera";
+			String PapuArea = PapuAreas[Papualeatorio.nextInt(PapuAreas.length)];
 			Stack<String> PapuHistorial = new Stack<>();
 
-			Paciente PapuPaciente = new Paciente(Papunombre, PapuApellido, PapuId, PapuCategoria,PapuTiempoLlegada,PapuEstado,PapuArea,PapuHistorial);
+			Paciente PapuPaciente = new Paciente(Papunombre, PapuApellido, PapuId, PapuCategoria, PapuTiempoLlegada, PapuEstado, PapuArea, PapuHistorial);
 			PapuListaPacientes.add(PapuPaciente);
-
 		}
 		return PapuListaPacientes;
 	}
 
 	static int QueTanMoridoEsta() {
-		int PapuValor = PapuAleatorio.nextInt(100);
-
-		if(PapuValor < 10) return 1;
-		else if(PapuValor < 25) return 2;
-		else if(PapuValor < 43) return 3;
-		else if(PapuValor < 70) return 4;
+		int PapuValor = Papualeatorio.nextInt(100);
+		if (PapuValor < 10) return 1;
+		else if (PapuValor < 25) return 2;
+		else if (PapuValor < 43) return 3;
+		else if (PapuValor < 70) return 4;
 		else return 5;
 	}
 
-	public static void EnlistarALosPacientes(list<paciente> PapuPacientes, String PapuNombreArchivo) {
-		try(PrintWriter PapuWriter = new PrintWriter(new FileWriter(PapuNombreArchivo))) {
-			for(Paciente p:PapuPacientes) {
-				PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + p.GetArea());
+	public static void EnlistarALosPacientes(List<Paciente> PapuPacientes, String PapuNombreArchivo) {
+		try (PrintWriter PapuWriter = new PrintWriter(new FileWriter(PapuNombreArchivo))) {
+			for (Paciente p : PapuPacientes) {
+				PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId() + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + ", " + p.GetArea());
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-}//listo
+};//listo
