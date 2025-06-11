@@ -322,7 +322,7 @@ class GeneradorPacientes {
 		for (int i = 0; i < PapuCantidad; i++) {
 			String Papunombre = PapuNombres[Papualeatorio.nextInt(PapuNombres.length)];
 			String PapuApellido = PapuApellidos[Papualeatorio.nextInt(PapuApellidos.length)];
-			String PapuId = "NB0" + i;
+			String PapuId = "N0" + i;
 			int PapuCategoria = QueTanMoridoEsta();
 			long PapuTiempoLlegada = PapuTimestampInicio + (i * 600);
 			String PapuEstado = "en_espera";
@@ -347,7 +347,7 @@ class GeneradorPacientes {
 	public static void EnlistarALosPacientes(List<Paciente> PapuPacientes, String PapuNombreArchivo) {
 		try (PrintWriter PapuWriter = new PrintWriter(new FileWriter(PapuNombreArchivo))) {
 			for (Paciente p : PapuPacientes) {
-				PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId() + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + ", " + p.GetArea() + ", " + p.getMEEQLA());
+				PapuWriter.println(p.GetNombre() + " " + p.GetApellido() + ", " + p.GetId() + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + ", " + p.GetArea() + ", " + p.getMEEQLA());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
