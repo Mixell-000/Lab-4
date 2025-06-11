@@ -10,6 +10,7 @@ class Paciente {
 	private String Estado;
 	private String Area;
 	private Stack<String> HistorialCambios;
+	private long MEEQLA = -1; //Minuto En El Que Lo Atendieron
 
 	Paciente(String Nombre,String Apellido,String Id,int Categoria,long TiempoLlegada,String Estado,String Area,Stack<String> HistorialCambios) {
 		this.Nombre = Nombre;
@@ -20,6 +21,10 @@ class Paciente {
 		this.Estado = Estado;
 		this.Area = Area;
 		this.HistorialCambios = HistorialCambios;
+		this.MEEQLA = MEEQLA;
+	}
+	public void SetMEEQLA(long MEEQLA) {
+		this.MEEQLA = MEEQLA;
 	}
 
 	public void SetNombre (String NewNombre) {
@@ -45,6 +50,14 @@ class Paciente {
 	}
 	public void SetHistorialCambios (Stack<String> NewHistorialCambios) {
 		HistorialCambios = NewHistorialCambios;
+	}
+
+	public long getMEEQLA() {
+		if (Estado.equals("atendido") && MEEQLA > 0) {
+			return (MEEQLA - TiempoLlegada) / 60;
+		} else {
+			return -1; // Naca
+		}
 	}
 
 	public String GetNombre() {
@@ -77,9 +90,11 @@ class Paciente {
 		long diferenciaTiempo = tiempoActual - TiempoLlegada;
 		return diferenciaTiempo/60;
 	}
+
 	public void registrarCambio(String descripcion) {
 		HistorialCambios.push(descripcion + " / / / " + new Date().toString());
 	}
+
 	public String obtenerUltimoCambio() {
 		if(HistorialCambios.isEmpty() == false) {
 			return HistorialCambios.pop();
@@ -90,21 +105,6 @@ class Paciente {
 
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public void Printcosos() {
 		System.out.println("Nombre : " + Nombre);
 		System.out.println("Apellido : " + Apellido);
@@ -114,6 +114,7 @@ class Paciente {
 		System.out.println("Estado : " + Estado);
 		System.out.println("Area : " + Area);
 		System.out.println("HistorialCambios : " + HistorialCambios);
+		System.out.println("Minuto en el que lo atendieron : " + MEEQLA);
 	}
 };//listo
 
@@ -154,7 +155,7 @@ class AreaAtencion {
 		}
 	}
 	public Paciente atenderPaciente() {
-		return PacientesHeap.poll(); // retorna null si el heap esta vaccio
+		return PacientesHeap.poll();
 	}
 
 	public boolean estaSaturada() {
@@ -168,7 +169,7 @@ class AreaAtencion {
 
     pacientesOrdenados.sort(
         Comparator.comparingInt(Paciente::GetCategoria)
-                  .thenComparingLong(p -> -p.tiempoEsperaActual()) // mas tiempo esperando = más prioridad
+                  .thenComparingLong(p -> -p.tiempoEsperaActual())
     );
 
     return pacientesOrdenados;
@@ -193,49 +194,49 @@ class Hospital {
 	         PriorityQueue<Paciente> ColaAtencion,
 	         Map<String, AreaAtencion> AreasAtencion,
 	         List<Paciente> PacientesAtendidos) {
-		this.PacientesTotales = PacientesTotales;
-		this.ColaAtencion = ColaAtencion;
-		this.AreasAtencion = AreasAtencion;
-		this.PacientesAtendidos = PacientesAtendidos;
+		this.pacientesTotales = PacientesTotales;
+		this.colaAtencion = ColaAtencion;
+		this.areasAtencion = AreasAtencion;
+		this.pacientesAtendidos = PacientesAtendidos;
 	}
 
 	public void SetPacientesTotales(Map<String, Paciente> nuevosPacientes) {
-		PacientesTotales = nuevosPacientes;
+		pacientesTotales = nuevosPacientes;
 	}
 
 	public void SetColaAtencion(PriorityQueue<Paciente> nuevaCola) {
-		ColaAtencion = nuevaCola;
+		colaAtencion = nuevaCola;
 	}
 
 	public void SetAreasAtencion(Map<String, AreaAtencion> nuevasAreas) {
-		AreasAtencion = nuevasAreas;
+		areasAtencion = nuevasAreas;
 	}
 
 	public void SetPacientesAtendidos(List<Paciente> nuevosAtendidos) {
-		PacientesAtendidos = nuevosAtendidos;
+		pacientesAtendidos = nuevosAtendidos;
 	}
 
 	public Map<String, Paciente> GetPacientesTotales() {
-		return PacientesTotales;
+		return pacientesTotales;
 	}
 
 	public PriorityQueue<Paciente> GetColaAtencion() {
-		return ColaAtencion;
+		return colaAtencion;
 	}
 
 	public Map<String, AreaAtencion> GetAreasAtencion() {
-		return AreasAtencion;
+		return areasAtencion;
 	}
 
 	public List<Paciente> GetPacientesAtendidos() {
-		return PacientesAtendidos;
+		return pacientesAtendidos;
 	}
 
 	public void Printcosos() {
-		System.out.println("PacientesTotales: " + PacientesTotales.keySet());
-		System.out.println("ColaAtencion: " + ColaAtencion);
-		System.out.println("AreasAtencion: " + AreasAtencion.keySet());
-		System.out.println("PacientesAtendidos: " + PacientesAtendidos.size());
+		System.out.println("PacientesTotales: " + pacientesTotales.keySet());
+		System.out.println("ColaAtencion: " + colaAtencion);
+		System.out.println("AreasAtencion: " + areasAtencion.keySet());
+		System.out.println("PacientesAtendidos: " + pacientesAtendidos.size());
 	}
 
 
@@ -260,11 +261,9 @@ class Hospital {
         int antiguaCategoria = p.GetCategoria();
         p.SetCategoria(nuevaCategoria);
 
-        // Registrar cambio
         p.registrarCambio("Categoría cambiada de C" + antiguaCategoria + " a C" + nuevaCategoria);
 
-        // Reinsertar en la cola para que se reordene por prioridad
-        colaAtencion.remove(p); //actualizar posicion
+        colaAtencion.remove(p);
         colaAtencion.add(p);
     }
 }
@@ -272,21 +271,22 @@ class Hospital {
 
 
 
-	public Paciente atenderSiguiente() {
-    Paciente siguiente = colaAtencion.poll();
-    if (siguiente != null) {
-        siguiente.SetEstado("atendido");
-        siguiente.registrarCambio("Paciente atendido y removido de la cola central");
+	public Paciente atenderSiguiente(int minutoSimulado) {
+		Paciente siguiente = colaAtencion.poll();
+		if (siguiente != null) {
+			siguiente.SetEstado("atendido");
+			siguiente.registrarCambio("Paciente atendido y removido de la cola central");
+			siguiente.SetMEEQLA(minutoSimulado * 60L);
 
-        AreaAtencion area = obtenerArea(siguiente.GetArea());
-        if (area != null) {
-            area.atenderPaciente(); // Saca del heap del area
-        }
+			AreaAtencion area = obtenerArea(siguiente.GetArea());
+			if (area != null) {
+				area.atenderPaciente();
+			}
+			pacientesAtendidos.add(siguiente);
+		}
+		return siguiente;
+	}
 
-        pacientesAtendidos.add(siguiente);
-    }
-    return siguiente;
-}
 
 
 	public List<Paciente> obtenerPacientesPorCategoria(int categoria) {
@@ -347,10 +347,146 @@ class GeneradorPacientes {
 	public static void EnlistarALosPacientes(List<Paciente> PapuPacientes, String PapuNombreArchivo) {
 		try (PrintWriter PapuWriter = new PrintWriter(new FileWriter(PapuNombreArchivo))) {
 			for (Paciente p : PapuPacientes) {
-				PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId() + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + ", " + p.GetArea());
+				PapuWriter.println(p.GetNombre() + ", " + p.GetApellido() + ", " + p.GetId() + ", " + p.GetCategoria() + ", " + p.GetTiempoLlegada() + ", " + p.GetEstado() + ", " + p.GetArea() + ", " + p.getMEEQLA());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 };//listo
+
+class SimuladorUrgencia {
+
+	private Hospital hospital;
+	private List<Paciente> pacientesGenerados;
+	private long timestampInicio;
+	private int pacientesGeneradosCount = 0;
+
+	public SimuladorUrgencia(Hospital hospital, List<Paciente> pacientesGenerados, long timestampInicio) {
+		this.hospital = hospital;
+		this.pacientesGenerados = pacientesGenerados;
+		this.timestampInicio = timestampInicio;
+	}
+
+	public void simular() {
+		int nuevosPacientesAcumulados = 0;
+		int totalMinutos = 24 * 60;
+
+		for (int minuto = 0; minuto < totalMinutos; minuto++) {
+			String horaSimulada = String.format("%02d:%02d", minuto / 60, minuto % 60);
+
+			if (minuto % 10 == 0 && pacientesGeneradosCount < pacientesGenerados.size()) {
+				Paciente nuevoPaciente = pacientesGenerados.get(pacientesGeneradosCount);
+				hospital.registrarPaciente(nuevoPaciente);
+				pacientesGeneradosCount++;
+				nuevosPacientesAcumulados++;
+			}
+
+			if (minuto % 15 == 0) {
+				hospital.atenderSiguiente(minuto); // minuto
+			}
+
+			if (nuevosPacientesAcumulados >= 3) {
+				hospital.atenderSiguiente(minuto);
+				hospital.atenderSiguiente(minuto);
+				nuevosPacientesAcumulados = 0;
+			}
+
+			// Imprimir info
+			System.out.println("---- Minuto " + minuto + " | Hora: " + horaSimulada + " ----");
+			System.out.println("Pacientes en espera : " + hospital.GetColaAtencion().size());
+			System.out.println("Pacientes atendidos : " + hospital.GetPacientesAtendidos().size());
+			System.out.println("📋 Lista de espera:");
+			for (Paciente p : hospital.GetColaAtencion()) {
+				System.out.println("🧍 " + p.GetNombre() + " " + p.GetApellido() + " | Área: " + p.GetArea() + " | C" + p.GetCategoria());
+			}
+			System.out.println();
+		}
+
+		System.out.println("🟢 Simulación terminada.");
+	}
+
+}
+
+
+	public class main {
+		public static void main(String[] args) {
+
+			Scanner scanner = new Scanner(System.in);
+			String opcion = "";
+
+			Map<String, Paciente> mapaPacientes = new HashMap<>();
+			PriorityQueue<Paciente> colaAtencion = new PriorityQueue<>(
+					Comparator.comparingInt(Paciente::GetCategoria)
+							.thenComparingLong(p -> -p.tiempoEsperaActual())
+			);
+			Map<String, AreaAtencion> areasAtencion = new HashMap<>();
+			List<Paciente> pacientesAtendidos = new ArrayList<>();
+
+			areasAtencion.put("SAPU", new AreaAtencion("SAPU", new PriorityQueue<>(
+					Comparator.comparingInt(Paciente::GetCategoria)
+							.thenComparingLong(p -> -p.tiempoEsperaActual())
+			), 50));
+
+			areasAtencion.put("Urgencia_Adulto", new AreaAtencion("Urgencia_Adulto", new PriorityQueue<>(
+					Comparator.comparingInt(Paciente::GetCategoria)
+							.thenComparingLong(p -> -p.tiempoEsperaActual())
+			), 50));
+
+			areasAtencion.put("Infantil", new AreaAtencion("Infantil", new PriorityQueue<>(
+					Comparator.comparingInt(Paciente::GetCategoria)
+							.thenComparingLong(p -> -p.tiempoEsperaActual())
+			), 50));
+
+			Hospital hospital = new Hospital(mapaPacientes, colaAtencion, areasAtencion, pacientesAtendidos);
+
+			long timestampInicio = 0; 
+			List<Paciente> pacientesGenerados = GeneradorPacientes.GenerarPacientes(144, timestampInicio);
+
+			SimuladorUrgencia simulador = new SimuladorUrgencia(hospital, pacientesGenerados, timestampInicio);
+
+			System.out.println("=== Bienvenido al Sistema de Simulación Hospitalaria ===");
+
+			while (!opcion.equals("6")) {
+				System.out.println("\nMenú Principal:");
+				System.out.println("1. Ejecutar simulación");
+				System.out.println("2. Mostrar cantidad total de pacientes atendidos");
+				System.out.println("3. Mostrar lista de pacientes atendidos");
+				System.out.println("4. Salir");
+				System.out.println("5. Exportar pacientes generados a archivo");
+				System.out.print("Seleccione una opción: ");
+				opcion = scanner.nextLine();
+
+				switch (opcion) {
+					case "1":
+						simulador.simular();
+						break;
+
+					case "2":
+						System.out.println("Pacientes atendidos: " + hospital.GetPacientesAtendidos().size());
+						break;
+
+					case "3":
+						System.out.println("--- Pacientes atendidos ---");
+						for (Paciente p : hospital.GetPacientesAtendidos()) {
+							System.out.println(p.GetNombre() + " " + p.GetApellido() + " - Categoría: C" + p.GetCategoria());
+						}
+						break;
+
+					case "4":
+						System.out.println("Saliendo del sistema. ¡Hasta luego!");
+						break;
+
+					case "5":
+						GeneradorPacientes.EnlistarALosPacientes(pacientesGenerados, "Pacientes_24h.txt");
+						System.out.println("Archivo 'Pacientes_24h.txt' generado exitosamente.");
+						break;
+
+					default:
+						System.out.println("Opción no válida. Intente nuevamente.");
+				}
+			}
+		}
+	}
+
+
