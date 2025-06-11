@@ -181,7 +181,7 @@ class AreaAtencion {
 		System.out.println("PacientesHeap : " + PacientesHeap);
 		System.out.println("CapacidadMaxima : " + CapacidadMaxima);
 	}
-};
+};//listo
 
 class Hospital {
 	private Map<String, Paciente> pacientesTotales;
