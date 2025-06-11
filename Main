@@ -239,28 +239,76 @@ class Hospital {
 	}
 
 
-	public Void registrarPaciente(Paciente p) {
+	public void registrarPaciente(Paciente p) {
+    pacientesTotales.put(p.GetId(), p);
+    colaAtencion.add(p);
 
-	}
-	public void reasignarCategoria(String id, int nuevaCategoria) {
+    AreaAtencion area = obtenerArea(p.GetArea());
+    if (area != null) {
+        area.ingresarPaciente(p);
+    }
 
-	}
-	public Paciente atenderSiguiente() {
-
-	}
-	public List<Paciente>obtenerPacientesPorCategoria(int categoria) {
-
-	}
-	public AreaAtencion obtenerArea(String nombre) {
-
-	}
-
-
-
-
-
-
+    p.registrarCambio("Paciente registrado en el sistema");
 }
+
+
+
+
+	public void reasignarCategoria(String id, int nuevaCategoria) {
+    Paciente p = pacientesTotales.get(id);
+    if (p != null) {
+        int antiguaCategoria = p.GetCategoria();
+        p.SetCategoria(nuevaCategoria);
+
+        // Registrar cambio
+        p.registrarCambio("Categoría cambiada de C" + antiguaCategoria + " a C" + nuevaCategoria);
+
+        // Reinsertar en la cola para que se reordene por prioridad
+        colaAtencion.remove(p); //actualizar posicion
+        colaAtencion.add(p);
+    }
+}
+
+
+
+
+	public Paciente atenderSiguiente() {
+    Paciente siguiente = colaAtencion.poll();
+    if (siguiente != null) {
+        siguiente.SetEstado("atendido");
+        siguiente.registrarCambio("Paciente atendido y removido de la cola central");
+
+        AreaAtencion area = obtenerArea(siguiente.GetArea());
+        if (area != null) {
+            area.atenderPaciente(); // Saca del heap del area
+        }
+
+        pacientesAtendidos.add(siguiente);
+    }
+    return siguiente;
+}
+
+
+	public List<Paciente> obtenerPacientesPorCategoria(int categoria) {
+    List<Paciente> resultado = new ArrayList<>();
+    for (Paciente p : colaAtencion) {
+        if (p.GetCategoria() == categoria) {
+            resultado.add(p);
+        }
+    }
+    return resultado;
+}
+
+	public AreaAtencion obtenerArea(String nombre) {
+    return areasAtencion.get(nombre);
+}
+
+
+
+
+
+
+};//listo
 
 class GeneradorPacientes {
 	private static String[] PapuNombres = {"Javoer", "Michell", "Marcos", "Gon", "Kurapika", "Leorio", "Killua", "Eren", "Mikasa", "Armin", "Miku", "Teto", "Satoru", "Miyuki", "Kaguya", "Senku", "Subaru", "Emilia", "Rem", "Kazuma", "Aqua", "Megumin", "Ainz", "Ash", "Marin", "Pekora", "Gura"};
